@@ -1,5 +1,5 @@
 import { FizzBuzzValue } from '../types/types';
-import ResultItem from './Result';
+import ResultItem from './ResultItem';
 
 interface ResultListProps {
   result: Array<FizzBuzzValue>;
