@@ -1,4 +1,6 @@
-export function fizzBuzz(start: number, end: number): { result: (string | number)[], error: string | null } {
+import { FizzBuzzValue, FizzBuzzError } from "../types/types";
+
+export function fizzBuzz(start: number, end: number): { result: FizzBuzzValue[], error: FizzBuzzError | null } {
 
   if (start > end) {
       return  {
@@ -10,11 +12,11 @@ export function fizzBuzz(start: number, end: number): { result: (string | number
   if (rangeSize > 10000) {
       return  {
         result: [], 
-        error: "The range size must be less than or equal to 10000" 
+        error: "The total range size must be less than or equal to 10000" 
       };
   }
 
-  const result: ("FizzBuzz" | "Fizz" | "Buzz" | number)[] = [];
+  const result: FizzBuzzValue[] = [];
 
   for (let value = start; value <= end; value++){
 

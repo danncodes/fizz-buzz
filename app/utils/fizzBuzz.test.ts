@@ -20,7 +20,7 @@ describe("fizzBuzz", () => {
     it("should return an error if range size is greater than 10000", () => {
       expect(fizzBuzz(1, 10001)).toEqual({
         result: [],
-        error: "The range size must be less than or equal to 10000"
+        error: "The total range size must be less than or equal to 10000"
       });
     });
 });
