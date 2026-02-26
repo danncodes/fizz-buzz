@@ -34,6 +34,13 @@ describe("fizzBuzz", () => {
       result: [],
       error: "The start and end values must be integers"
     });
+    });
+
+    it("should handle negative numbers correctly", () => {
+    expect(fizzBuzz(-5, 5)).toEqual({
+      result: ["Buzz", -4, "Fizz", -2, -1, "FizzBuzz", 1, 2, "Fizz", 4, "Buzz"],
+      error: null
+    });
   });
 
     
