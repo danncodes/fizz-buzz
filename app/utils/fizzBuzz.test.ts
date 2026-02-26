@@ -23,4 +23,18 @@ describe("fizzBuzz", () => {
         error: "The total range size must be less than or equal to 10000"
       });
     });
+
+    it("should return an error if start or end is a decimal number", () => {
+    expect(fizzBuzz(1.5, 10)).toEqual({
+      result: [],
+      error: "The start and end values must be integers"
+    });
+
+    expect(fizzBuzz(1, 10.2)).toEqual({
+      result: [],
+      error: "The start and end values must be integers"
+    });
+  });
+
+    
 });

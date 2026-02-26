@@ -8,6 +8,14 @@ export function fizzBuzz(start: number, end: number): { result: FizzBuzzValue[],
         error: "The start value must be less than or equal to the end value" 
       };
   }
+
+  if (!Number.isInteger(start) || !Number.isInteger(end)) {
+    return {
+      result: [],
+      error: "The start and end values must be integers"
+    };
+  }
+
   const rangeSize = end - start + 1 ;
   if (rangeSize > 10000) {
       return  {
