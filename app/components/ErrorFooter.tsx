@@ -1,7 +1,7 @@
 import { FizzBuzzError } from "../types/types";
 
 interface ErrorFooterProps {
-  error: FizzBuzzError | null;
+  error: FizzBuzzError;
 }
 
 function ErrorFooter({ error }: ErrorFooterProps) {
