@@ -5,7 +5,7 @@ import { FizzBuzzError, FizzBuzzValue } from './types/types';
 import { fizzBuzz } from './utils/fizzBuzz';
 import Header from './components/Header';
 import ErrorFooter from './components/ErrorFooter';
-import GenerateButton from './components/GenerateButton';
+import Button from './components/Button';
 import RangeInput from './components/RangeInput';
 import ResultList from './components/ResultList';
 
@@ -33,7 +33,7 @@ export default function Home() {
           </div>
 
           <div className="flex justify-center mt-10">
-            <GenerateButton onClick={handleGenerate} text="Generate FizzBuzz" />
+            <Button onClick={handleGenerate} text="Generate FizzBuzz" />
           </div>
         </section>
 
