@@ -13,7 +13,7 @@ describe("Button", () => {
     expect(button).toBeInTheDocument();
   });
 
-  it("should NOT submit the form when button is disabled", async () => {
+  it("should submit the form when clicked", async () => {
   const user = userEvent.setup();
   const handleSubmit = jest.fn((e) => e.preventDefault());
 
@@ -29,7 +29,7 @@ describe("Button", () => {
   expect(handleSubmit).toHaveBeenCalledTimes(1);
   });
 
-  it("should submit the form when clicked", async () => {
+  it("should NOT submit the form when button is disabled", async () => {
   const user = userEvent.setup();
   const handleSubmit = jest.fn((e) => e.preventDefault());
 
@@ -58,5 +58,5 @@ describe("Button", () => {
   const button = screen.getByRole("button", { name: "Generate" });
 
   expect(button).toHaveClass("cursor-not-allowed");
-});
+  });
 });
