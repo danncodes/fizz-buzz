@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FizzBuzzError, FizzBuzzValue } from './types/types';
+import { FizzBuzzValue } from './types/types';
 import { validateRange } from './utils/validateRange';
 import { fizzBuzz } from './utils/fizzBuzz';
 import Header from './components/Header';
@@ -14,23 +14,23 @@ export default function Home() {
   const [start, setStart] = useState<string>("1");
   const [end, setEnd] = useState<string>("100");
   const [result, setResult] = useState<Array<FizzBuzzValue>>([]);
-  const [error, setError] = useState<FizzBuzzError | null>(null);
+
+  const validation = validateRange(start, end);
+  const isValid = !('error' in validation);
+  const liveError = 'error' in validation ? validation.error : null;
 
   function handleGenerate(e: React.SubmitEvent) {
     e.preventDefault();
-    const validation = validateRange(start, end);
 
-    if ("error" in validation) {
+    if (!isValid) {
       setResult([]);
-      setError(validation.error);
       return;
     }
 
     const { start: validatedStart, end: validatedEnd } = validation;
-  
     const { result } = fizzBuzz(validatedStart, validatedEnd);
+
     setResult(result);
-    setError(null);
   }
 
   return (
@@ -45,7 +45,7 @@ export default function Home() {
           </div>
 
           <div className="flex justify-center mt-10">
-            <Button text="Generate FizzBuzz" />
+            <Button text="Generate FizzBuzz" disabled={!isValid} />
           </div>
         </form>
 
@@ -53,7 +53,7 @@ export default function Home() {
           <ResultList result={result} />
         </section>
 
-        {error && <ErrorFooter error={error} />}
+        {liveError && <ErrorFooter error={liveError} />}
       </main>
     </div>
   );
