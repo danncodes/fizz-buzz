@@ -16,7 +16,8 @@ export default function Home() {
   const [result, setResult] = useState<Array<FizzBuzzValue>>([]);
   const [error, setError] = useState<FizzBuzzError | null>(null);
 
-  function handleGenerate() {
+  function handleGenerate(e: React.SubmitEvent) {
+    e.preventDefault();
     const validation = validateRange(start, end);
 
     if ("error" in validation) {
@@ -37,16 +38,16 @@ export default function Home() {
       <main>
         <Header title="Fizz Buzz Generator" description="Enter a range and see the magic happen." />
 
-        <section>
+        <form onSubmit={handleGenerate}>
           <div className="flex justify-center items-center gap-4 mt-10 sm:text-3xl">
             <RangeInput id="input-range-start" label="Start" value={start} onChange={setStart} />
             <RangeInput id="input-range-end" label="End" value={end} onChange={setEnd} />
           </div>
 
           <div className="flex justify-center mt-10">
-            <Button onClick={handleGenerate} text="Generate FizzBuzz" />
+            <Button text="Generate FizzBuzz" />
           </div>
-        </section>
+        </form>
 
         <section className="my-10">
           <ResultList result={result} />

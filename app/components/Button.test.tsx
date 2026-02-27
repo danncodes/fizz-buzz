@@ -4,7 +4,7 @@ import Button from "./Button";
 
 describe("Button", () => {
   it("should render the button with provided text", () => {
-    render(<Button onClick={jest.fn()} text="Generate FizzBuzz" />);
+    render(<Button text="Generate FizzBuzz" />);
 
     const button = screen.getByRole("button", {
       name: "Generate FizzBuzz",
@@ -13,19 +13,24 @@ describe("Button", () => {
     expect(button).toBeInTheDocument();
   });
 
-  it("should call onClick when clicked", async () => {
-    const user = userEvent.setup();
-    const handleClick = jest.fn();
-    render(<Button onClick={handleClick} text="Generate" />);
-    
-    const button = screen.getByRole("button", { name: "Generate" });
-    await user.click(button);
+  it("should submit the form when clicked", async () => {
+  const user = userEvent.setup();
+  const handleSubmit = jest.fn((e) => e.preventDefault());
 
-    expect(handleClick).toHaveBeenCalledTimes(1);
-  });
+  render(
+    <form onSubmit={handleSubmit}>
+      <Button text="Generate" />
+    </form>
+  );
+
+  const button = screen.getByRole("button", { name: "Generate" });
+  await user.click(button);
+
+  expect(handleSubmit).toHaveBeenCalledTimes(1);
+});
 
   it("should render different button text correctly", () => {
-    render(<Button onClick={jest.fn()} text="Click Me" />);
+    render(<Button text="Click Me" />);
 
     expect(screen.getByRole("button", { name: "Click Me" }))
       .toBeInTheDocument();
