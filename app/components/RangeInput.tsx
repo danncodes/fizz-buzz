@@ -1,21 +1,19 @@
-import { forwardRef } from "react";
-
 interface RangeInputProps {
   id: string;
   label: string;
-  defaultValue: number;
+  value: string;
+  onChange: (value: string) => void;
 }
 
-const RangeInput = forwardRef<HTMLInputElement, RangeInputProps>(
-  ({ id, label, defaultValue }, ref) => {
-    return (
+function RangeInput({ id, label, value, onChange }: RangeInputProps) {
+  return (
       <div>
         <input
           id={id}
           type="number"
           className="border-2 rounded border-gray-300 h-18 w-32 sm:h-24 sm:w-48 text-center"
-          ref={ref}
-          defaultValue={defaultValue}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
         />
         <label
           htmlFor={id}
@@ -25,9 +23,6 @@ const RangeInput = forwardRef<HTMLInputElement, RangeInputProps>(
         </label>
       </div>
     );
-  }
-);
-
-RangeInput.displayName = "RangeInput";
+}
 
 export default RangeInput;
