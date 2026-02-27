@@ -1,2 +1,2 @@
 export type FizzBuzzValue = "Fizz" | "Buzz" | "FizzBuzz" | number;
-export type FizzBuzzError = "The start value must be less than or equal to the end value" | "The total range size must be less than or equal to 10000" | "The start and end values must be integers";
+export type FizzBuzzError = "The start value must be less than or equal to the end value" | "The total range size must be less than or equal to 10000" | "The start and end values must be integers" | "The start and end values must be numbers" | "Both start and end values are required"

@@ -1,29 +1,6 @@
-import { FizzBuzzValue, FizzBuzzError } from "../types/types";
+import { FizzBuzzValue } from "../types/types";
 
-export function fizzBuzz(start: number, end: number): { result: FizzBuzzValue[], error: FizzBuzzError | null } {
-
-  if (start > end) {
-      return  {
-        result: [], 
-        error: "The start value must be less than or equal to the end value" 
-      };
-  }
-
-  if (!Number.isInteger(start) || !Number.isInteger(end)) {
-    return {
-      result: [],
-      error: "The start and end values must be integers"
-    };
-  }
-
-  const rangeSize = end - start + 1 ;
-  if (rangeSize > 10000) {
-      return  {
-        result: [], 
-        error: "The total range size must be less than or equal to 10000" 
-      };
-  }
-
+export function fizzBuzz(start: number, end: number): { result: FizzBuzzValue[]} {
   const result: FizzBuzzValue[] = [];
 
   for (let value = start; value <= end; value++){
@@ -42,8 +19,5 @@ export function fizzBuzz(start: number, end: number): { result: FizzBuzzValue[],
     }
   }
   
-  return  {
-    result, 
-    error: null
-  };
+  return  { result };
 }
