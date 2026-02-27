@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { FizzBuzzError, FizzBuzzValue } from './types/types';
+import { validateRange } from './utils/validateRange';
 import { fizzBuzz } from './utils/fizzBuzz';
 import Header from './components/Header';
 import ErrorFooter from './components/ErrorFooter';
@@ -10,15 +11,26 @@ import RangeInput from './components/RangeInput';
 import ResultList from './components/ResultList';
 
 export default function Home() {
-  const [start, setStart] = useState<number>(1);
-  const [end, setEnd] = useState<number>(100);
+  const startRef = useRef<HTMLInputElement>(null);
+  const endRef = useRef<HTMLInputElement>(null);
   const [result, setResult] = useState<Array<FizzBuzzValue>>([]);
   const [error, setError] = useState<FizzBuzzError | null>(null);
 
   function handleGenerate() {
-    const { result, error } = fizzBuzz(start, end);
+    if (!startRef.current || !endRef.current) return;
+    const validation = validateRange(startRef.current.value.trim(), endRef.current.value.trim());
+    
+    if ("error" in validation) {
+      setResult([]);
+      setError(validation.error);
+      return;
+    }
+
+    const { start, end } = validation;
+  
+    const { result } = fizzBuzz(start,end);
     setResult(result);
-    setError(error);
+    setError(null);
   }
 
   return (
@@ -28,8 +40,8 @@ export default function Home() {
 
         <section>
           <div className="flex justify-center items-center gap-4 mt-10 sm:text-3xl">
-            <RangeInput id="input-range-start" label="Start" value={start} onChange={setStart} />
-            <RangeInput id="input-range-end" label="End" value={end} onChange={setEnd} />
+            <RangeInput id="input-range-start" label="Start" ref={startRef} defaultValue={1} />
+            <RangeInput id="input-range-end" label="End" ref={endRef} defaultValue={100} />
           </div>
 
           <div className="flex justify-center mt-10">

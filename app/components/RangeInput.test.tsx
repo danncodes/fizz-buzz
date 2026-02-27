@@ -1,10 +1,11 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import RangeInput from "./RangeInput";
 
 describe("RangeInput", () => {
-  it("should render the label and input with correct value", () => {
+  it("should render the label and input with correct default value", () => {
     render(
-      <RangeInput id="range-start" label="Start" value={5} onChange={jest.fn()} />
+      <RangeInput id="range-start" label="Start" ref={null} defaultValue={5} />
     );
     const input = screen.getByLabelText("Start");
 
@@ -12,17 +13,18 @@ describe("RangeInput", () => {
     expect(input).toHaveValue(5);
   });
 
-  it("should call onChange with a number when value changes", async () => {
-    const handleChange = jest.fn();
+  it("should update the input value when user types", async () => {
+    const user = userEvent.setup();
 
     render(
-      <RangeInput id="range-end" label="End" value={10} onChange={handleChange} />
+      <RangeInput id="range-start" label="Start" ref={null} defaultValue={5} />
     );
 
-    const input = screen.getByLabelText("End");
-    fireEvent.change(input, { target: { value: "42" } });
+    const input = screen.getByLabelText("Start");
+    await user.clear(input);
+    await user.type(input, "10");
 
-    expect(handleChange).toHaveBeenCalledWith(42);
+    expect(input).toHaveValue(10);
   });
 
 });
